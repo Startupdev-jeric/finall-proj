@@ -5,8 +5,10 @@
 }
 
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
+  --primary: #14532d;
+  --primary-hover: #0b3b24;
+  --feu-gold: #d4af37;
+  --feu-gold-soft: #fef3c7;
   --bg-main: #f8fafc;
   --bg-card: #ffffff;
   --border-color: #e2e8f0;
@@ -80,6 +82,82 @@ body {
 .page-nav a.active {
   background-color: var(--primary);
   color: #ffffff;
+}
+
+/* Non-clickable FEU-inspired decorative accents */
+.feu-banner-deco,
+.feu-crest-mark,
+.feu-pill {
+  pointer-events: none;
+  user-select: none;
+}
+
+.feu-banner-deco {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  background: linear-gradient(125deg, #0b3b24 0%, #14532d 65%, #166534 100%);
+  color: #ffffff;
+  border: 2px solid var(--feu-gold);
+  border-radius: var(--radius-md);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+  box-shadow: 0 6px 18px rgba(11, 59, 36, 0.14);
+}
+
+.feu-crest-mark {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--feu-gold);
+  color: #0b3b24;
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: 0.06em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #fffbeb;
+  flex-shrink: 0;
+}
+
+.feu-banner-text {
+  flex: 1 1 240px;
+}
+
+.feu-kicker {
+  display: block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #fde68a;
+  font-weight: 700;
+}
+
+.feu-motto {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 2px;
+  color: #ffffff;
+}
+
+.feu-values-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.feu-pill {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(253, 230, 138, 0.65);
+  color: var(--feu-gold-soft);
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
 }
 
 .card {
