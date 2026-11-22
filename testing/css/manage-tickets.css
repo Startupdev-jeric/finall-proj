@@ -1,0 +1,22 @@
+.tickets-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .tickets-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filter-controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.filter-controls input,
+.filter-controls select {
+  width: auto;
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Tickets - CampusConnect</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/manage-tickets.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div>
+        <h1>Manage Tickets</h1>
+        <p class="subtitle">Create, search, filter, update status, and delete tickets</p>
+      </div>
+      <button id="reset-data-btn" class="btn btn-secondary">Reset Demo Data</button>
+    </header>
+
+    <nav class="page-nav">
+      <a href="index.html">Dashboard</a>
+      <a href="manage-tickets.html" class="active">Manage Tickets</a>
+      <a href="priority-queue.html">Priority Queue</a>
+      <a href="reports.html">Data &amp; Reports</a>
+      <a href="tests.html">Automated Tests</a>
+      <a href="matrix.html">Traceability Matrix</a>
+    </nav>
+
+    <div class="tickets-layout">
+      <div class="card">
+        <h2>Create Service Ticket</h2>
+        <form id="ticket-form" novalidate>
+          <div class="form-group">
+            <label for="student-name">Student Name *</label>
+            <input type="text" id="student-name" required placeholder="e.g. Jane Doe" />
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category *</label>
+            <select id="category" required>
+              <option value="">Select Category</option>
+              <option value="Academic">Academic</option>
+              <option value="Financial">Financial</option>
+              <option value="IT Support">IT Support</option>
+              <option value="Facilities">Facilities</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="priority">Priority *</label>
+            <select id="priority" required>
+              <option value="">Select Priority</option>
+              <option value="Urgent">Urgent</option>
+              <option value="High">High</option>
+              <option value="Medium">Medium</option>
+              <option value="Low">Low</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="est-hours">Estimated Hours * (0.5 - 40.0)</label>
+            <input type="number" id="est-hours" step="0.5" min="0.5" max="40" required placeholder="e.g. 2.5" />
+          </div>
+
+          <div class="form-group">
+            <label for="description">Issue Description *</label>
+            <textarea id="description" rows="3" required placeholder="Describe the request..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Submit Ticket</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>Active Service Tickets</h2>
+          <div class="filter-controls">
+            <input type="text" id="search-input" placeholder="Search ID, student, details..." />
+            <select id="filter-category">
+              <option value="ALL">All Categories</option>
+              <option value="Academic">Academic</option>
+              <option value="Financial">Financial</option>
+              <option value="IT Support">IT Support</option>
+              <option value="Facilities">Facilities</option>
+              <option value="General">General</option>
+            </select>
+            <select id="filter-status">
+              <option value="ALL">All Statuses</option>
+              <option value="Pending">Pending</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Resolved">Resolved</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Student</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Est. Hrs</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ticket-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="status-modal" class="modal">
+    <div class="modal-content card">
+      <div class="modal-header">
+        <h3>Update Ticket Status</h3>
+        <button id="modal-close" class="close-btn">&times;</button>
+      </div>
+      <p id="modal-ticket-info" style="margin-bottom: 12px;"></p>
+      <div class="form-group">
+        <label for="modal-status-select">Select New Status:</label>
+        <select id="modal-status-select"></select>
+      </div>
+      <div class="modal-footer">
+        <button id="modal-cancel-btn" class="btn btn-secondary">Cancel</button>
+        <button id="modal-save-btn" class="btn btn-primary">Save Transition</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

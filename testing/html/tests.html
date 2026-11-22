@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automated Tests - CampusConnect</title>
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/tests.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <div>
+        <h1>Automated Tests</h1>
+        <p class="subtitle">15-point verification suite for ID generation, validation, transitions, and queue ordering</p>
+      </div>
+      <button id="reset-data-btn" class="btn btn-secondary">Reset Demo Data</button>
+    </header>
+
+    <nav class="page-nav">
+      <a href="index.html">Dashboard</a>
+      <a href="manage-tickets.html">Manage Tickets</a>
+      <a href="priority-queue.html">Priority Queue</a>
+      <a href="reports.html">Data &amp; Reports</a>
+      <a href="tests.html" class="active">Automated Tests</a>
+      <a href="matrix.html">Traceability Matrix</a>
+    </nav>
+
+    <section class="card">
+      <div class="card-header">
+        <h2>Test Runner</h2>
+        <button id="run-tests-btn" class="btn btn-primary">Run Acceptance Tests</button>
+      </div>
+      <p id="test-summary-text" class="test-summary">Click "Run Acceptance Tests" to execute the test suite.</p>
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Test Case Name</th>
+              <th>Module</th>
+              <th>Status</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="test-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
