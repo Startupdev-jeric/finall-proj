@@ -26,7 +26,7 @@ function bindEvents() {
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
       if (confirm('Reset all ticket data back to initial demo state?')) {
-        activeTickets = resetToDemoData();
+        activeTickets = resetToSeedData();
         renderAll();
       }
     });
@@ -95,7 +95,7 @@ function handleCreateTicket(e) {
     description: document.getElementById('description').value.trim()
   };
 
-  const validation = validateTicketInput(formData);
+  const validation = validateTicketData(formData);
   if (!validation.valid) {
     alert(`Validation Error: ${validation.message}`);
     return;
