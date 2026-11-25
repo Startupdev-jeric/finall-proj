@@ -271,18 +271,18 @@ function handleRunTests() {
   const summary = document.getElementById('test-summary-text');
   if (!tbody) return;
 
-  const passed = testResults.filter((r) => r.passed).length;
+  const passed = testResults.filter((r) => r.pass).length;
   if (summary) {
     summary.innerHTML = `<strong>Suite Result:</strong> ${passed} / ${testResults.length} Tests Passed.`;
   }
 
-  tbody.innerHTML = testResults.map((r, i) => `
+  tbody.innerHTML = testResults.map((r) => `
     <tr>
-      <td>${i + 1}</td>
+      <td>${r + id}</td>
       <td>${r.name}</td>
-      <td><code>${r.module}</code></td>
-      <td><span class="badge ${r.passed ? 'badge-resolved' : 'badge-cancelled'}">${r.passed ? 'PASSED' : 'FAILED'}</span></td>
-      <td>${r.log}</td>
+      <td><code>${r.component}</code></td>
+      <td><span class="badge ${r.pass ? 'badge-resolved' : 'badge-cancelled'}">${r.pass ? 'PASSED' : 'FAILED'}</span></td>
+      <td>${r.detailed}</td>
     </tr>
   `).join('');
 }
