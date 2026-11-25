@@ -239,14 +239,6 @@ export function calculateMetrics() {
     return { total, pending, progress, resolved, avgHours };
 }
 
-export function generateTicketId(existingTickets = [], prefix = 'CC', digits = 4) {
-  const existingIds = new Set(existingTickets.map((ticket) => ticket.id));
-  const min = 10 ** (digits - 1);
-  const max = 10 ** digits - 1;
-
-  let candidateId = '';
-  let attempts = 0;
-
   do {
     const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
     candidateId = `${prefix}-${randomNum}`;
