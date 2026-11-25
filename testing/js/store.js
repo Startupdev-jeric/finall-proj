@@ -239,19 +239,6 @@ export function calculateMetrics() {
     return { total, pending, progress, resolved, avgHours };
 }
 
-  do {
-    const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-    candidateId = `${prefix}-${randomNum}`;
-    attempts += 1;
-
-    if (attempts > 50) {
-      return generateTicketId(existingTickets, prefix, digits + 1);
-    }
-  } while (existingIds.has(candidateId));
-
-  return candidateId;
-}
-
 export const ALLOWED_STATUS_TRANSITIONS = {
   Pending: ['In Progress', 'Cancelled'],
   'In Progress': ['Resolved', 'Cancelled'],
