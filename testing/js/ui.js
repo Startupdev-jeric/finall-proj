@@ -158,7 +158,8 @@ function renderTicketTable() {
   tbody.querySelectorAll('.action-delete-btn').forEach((btn) => {
     btn.addEventListener('click', () => {
       if (confirm(`Are you sure you want to delete ticket ${btn.dataset.id}?`)) {
-        activeTickets = deleteTicket(activeTickets, btn.dataset.id);
+        deleteTicket(btn.dataset.id);
+        activeTickets = loadTickets();
         renderAll();
       }
     });
@@ -237,6 +238,7 @@ function handleSaveStatusTransition() {
     alert(result.error);
   } else {
     activeTickets = result.tickets;
+    saveTickets(activeTickets);
     closeModal();
     renderAll();
   }
