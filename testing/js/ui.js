@@ -2,10 +2,10 @@ import {
   loadTickets,
   saveTickets,
   generateTicketId,
-  validateTicketInput,
+  validateTicketData,
   transitionTicketStatus,
   deleteTicket,
-  resetToDemoData,
+  resetToSeedData,
   ALLOWED_STATUS_TRANSITIONS
 } from './store.js';
 
