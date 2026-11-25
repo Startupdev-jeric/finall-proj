@@ -147,7 +147,7 @@ export function validateTicketData(data) {
         return { valid: false, message: 'Priority selection is required.' };
     }
     const hours = parseFloat(data.estimatedHours);
-    if (isNaN(hours) || hours < 0.5 || hours > 100) {
+    if (isNaN(hours) || hours < 0.5 || hours > 40) {
         return { valid: false, message: 'Estimated Hours must be a number between 0.5 and 100.' };
     }
     if (!data.description || data.description.trim() === '') {
@@ -202,7 +202,7 @@ export function updateTicket(id, updatedFields) {
 
     if (updatedFields.estimatedHours !== undefined) {
         const hours = parseFloat(updatedFields.estimatedHours);
-        if (isNaN(hours) || hours < 0.5 || hours > 100) {
+        if (isNaN(hours) || hours < 0.5 || hours > 40) {
             return { success: false, message: 'Estimated Hours must be between 0.5 and 100.' };
         }
         ticket.estimatedHours = hours;
