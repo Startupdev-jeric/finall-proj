@@ -9,7 +9,7 @@ import {
   ALLOWED_STATUS_TRANSITIONS
 } from './store.js';
 
-import { getSortedQueue, processNextTicketInQueue } from './queue.js';
+import { getSortedPendingQueue, processNextQueueTicket } from './queue.js';
 import { runAllTests } from './tests.js';
 
 let activeTickets = [];
@@ -91,7 +91,7 @@ function handleCreateTicket(e) {
     studentName: document.getElementById('student-name').value.trim(),
     category: document.getElementById('category').value,
     priority: document.getElementById('priority').value,
-    estHours: document.getElementById('est-hours').value,
+    estimatedHours: document.getElementById('est-hours').value,
     description: document.getElementById('description').value.trim()
   };
 
@@ -106,7 +106,7 @@ function handleCreateTicket(e) {
     studentName: formData.studentName,
     category: formData.category,
     priority: formData.priority,
-    estHours: parseFloat(formData.estHours),
+    estimatedHours: parseFloat(formData.estimatedHours),
     description: formData.description,
     status: 'Pending',
     createdAt: new Date().toISOString()
@@ -142,7 +142,7 @@ function renderTicketTable() {
       <td>${t.studentName}</td>
       <td>${t.category}</td>
       <td><span class="badge badge-${t.priority.toLowerCase()}">${t.priority}</span></td>
-      <td>${t.estHours.toFixed(1)} hrs</td>
+      <td>${t.estimatedHours.toFixed(1)} hrs</td>
       <td><span class="badge badge-${t.status.toLowerCase().replace(/\s+/g, '')}">${t.status}</span></td>
       <td>
         <button class="btn btn-secondary btn-sm action-status-btn" data-id="${t.id}">Status</button>
@@ -166,7 +166,7 @@ function renderTicketTable() {
 }
 
 function renderQueueView() {
-  const queue = getSortedQueue(activeTickets);
+  const queue = getSortedPendingQueue(activeTickets);
   const tbody = document.getElementById('queue-table-body');
   const banner = document.getElementById('next-ticket-banner');
   if (!tbody || !banner) return;
@@ -185,18 +185,18 @@ function renderQueueView() {
       <td>${t.studentName}</td>
       <td>${t.category}</td>
       <td><span class="badge badge-${t.priority.toLowerCase()}">${t.priority}</span></td>
-      <td>${t.estHours.toFixed(1)} hrs</td>
+      <td>${t.estimatedHours.toFixed(1)} hrs</td>
       <td>${new Date(t.createdAt).toLocaleTimeString()}</td>
     </tr>
   `).join('') || `<tr><td colspan="7" style="text-align:center; color:#64748b;">No pending tickets in queue.</td></tr>`;
 }
 
 function handleProcessNext() {
-  const result = processNextTicketInQueue(activeTickets);
-  if (!result.ok) {
+  const result = processNextQueueTicket(activeTickets);
+  if (!result.success) {
     alert(result.message);
   } else {
-    activeTickets = result.tickets;
+    activeTickets = load.tickets;
     renderAll();
   }
 }
@@ -256,7 +256,7 @@ function renderMetrics() {
   if (hoursEl) {
     const backlogHours = activeTickets
       .filter((t) => t.status === 'Pending' || t.status === 'In Progress')
-      .reduce((sum, t) => sum + t.estHours, 0);
+      .reduce((sum, t) => sum + t.estimatedHours, 0);
     hoursEl.innerText = `${backlogHours.toFixed(1)} hrs`;
   }
 }
