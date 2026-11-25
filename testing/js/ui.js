@@ -89,6 +89,7 @@ function handleCreateTicket(e) {
 
   const formData = {
     studentName: document.getElementById('student-name').value.trim(),
+    studentId: document.getElementById('student-id').value.trim(),
     category: document.getElementById('category').value,
     priority: document.getElementById('priority').value,
     estimatedHours: document.getElementById('est-hours').value,
@@ -104,6 +105,7 @@ function handleCreateTicket(e) {
   const newTicket = {
     id: generateTicketId(activeTickets),
     studentName: formData.studentName,
+    studentId: formData.studentId,
     category: formData.category,
     priority: formData.priority,
     estimatedHours: parseFloat(formData.estimatedHours),
