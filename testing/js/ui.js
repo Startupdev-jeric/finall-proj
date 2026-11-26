@@ -116,8 +116,19 @@ function handleCreateTicket(e) {
 
   activeTickets.push(newTicket);
   saveTickets(activeTickets);
+
+  // Reset filters and search so a newly submitted ticket is immediately visible.
+  const searchInput = document.getElementById('search-input');
+  const categoryFilter = document.getElementById('filter-category');
+  const statusFilter = document.getElementById('filter-status');
+  if (searchInput) searchInput.value = '';
+  if (categoryFilter) categoryFilter.value = 'ALL';
+  if (statusFilter) statusFilter.value = 'ALL';
+
   e.target.reset();
   renderAll();
+
+  alert(`Ticket ${newTicket.id} submitted successfully.`);
 }
 
 function renderTicketTable() {
@@ -279,11 +290,11 @@ function handleRunTests() {
 
   tbody.innerHTML = testResults.map((r) => `
     <tr>
-      <td>${r + id}</td>
+      <td>${r.id}</td>
       <td>${r.name}</td>
       <td><code>${r.component}</code></td>
       <td><span class="badge ${r.pass ? 'badge-resolved' : 'badge-cancelled'}">${r.pass ? 'PASSED' : 'FAILED'}</span></td>
-      <td>${r.detailed}</td>
+      <td>${r.detail}</td>
     </tr>
   `).join('');
 }
