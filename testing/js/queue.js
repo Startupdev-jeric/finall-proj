@@ -5,15 +5,23 @@
 
 import { getTickets, updateTicket, PRIORITY_RANK } from './store.js';
 
-export function getSortedPendingQueue() {
-    const pending = getTickets().filter(t => t.status === 'Pending');
-    
-    // Sort by priority rank (descending), then by creation date (FIFO)
-    return pending.sort((a, b) => {
-        const rankDiff = PRIORITY_RANK[b.priority] - PRIORITY_RANK[a.priority];
-        if (rankDiff !== 0) return rankDiff;
-        return new Date(a.createdAt) - new Date(b.createdAt);
-    });
+export function getSortedPendingQueue(ticketList = getTickets()) {
+  const pending = ticketList.filter(
+    (ticket) => ticket.status === 'Pending'
+  );
+
+  return [...pending].sort((a, b) => {
+    const rankDifference =
+      PRIORITY_RANK[b.priority] -
+      PRIORITY_RANK[a.priority];
+
+    if (rankDifference !== 0) {
+      return rankDifference;
+    }
+
+    return new Date(a.createdAt) -
+      new Date(b.createdAt);
+  });
 }
 
 export function processNextQueueTicket() {
