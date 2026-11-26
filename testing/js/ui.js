@@ -196,10 +196,11 @@ function renderQueueView() {
 
 function handleProcessNext() {
   const result = processNextQueueTicket(activeTickets);
+
   if (!result.success) {
     alert(result.message);
   } else {
-    activeTickets = load.tickets;
+    activeTickets = loadTickets();
     renderAll();
   }
 }
