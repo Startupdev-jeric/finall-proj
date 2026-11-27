@@ -1,3 +1,11 @@
+import {
+  getJdbcTickets,
+  createJdbcTicket,
+  updateJdbcTicket,
+  deleteJdbcTicket,
+  resetJdbcTickets
+} from './jdbc-api.js';
+
 /**
  * js/store.js
  * Data persistence, validation rules, and core domain state storage.
@@ -121,6 +129,34 @@ export function getTickets() {
   return tickets;
 }
 
+export async function loadTicketsFromJdbc() {
+  try {
+    tickets = await getJdbcTickets();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tickets));
+  } catch (error) {
+    tickets = loadTickets();
+  }
+  return tickets;
+}
+
+export async function persistTicketToJdbc(ticket) {
+  return createJdbcTicket(ticket);
+}
+
+export async function persistTicketUpdateToJdbc(ticket) {
+  return updateJdbcTicket(ticket);
+}
+
+export async function persistTicketDeleteToJdbc(id) {
+  return deleteJdbcTicket(id);
+}
+
+export async function resetTicketsInJdbc() {
+  tickets = await resetJdbcTickets();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(tickets));
+  return tickets;
+}
+
 export function setTickets(newTickets) {
   tickets = Array.isArray(newTickets)
     ? newTickets
@@ -132,6 +168,7 @@ export function setTickets(newTickets) {
 export function resetToSeedData() {
   tickets = JSON.parse(JSON.stringify(SEED_DATA));
   saveTickets();
+  resetJdbcTickets().catch(() => {});
   return tickets;
 }
 
@@ -242,6 +279,7 @@ export function addTicket(ticketData) {
 
   tickets.unshift(newTicket);
   saveTickets();
+  createJdbcTicket(newTicket).catch(() => {});
 
   return {
     success: true,
@@ -298,6 +336,7 @@ export function updateTicket(id, updatedFields) {
 
   ticket.updatedAt = new Date().toISOString();
   saveTickets();
+  updateJdbcTicket(ticket).catch(() => {});
 
   return {
     success: true,
@@ -311,6 +350,7 @@ export function deleteTicket(id) {
 
   if (tickets.length < originalLength) {
     saveTickets();
+    deleteJdbcTicket(id).catch(() => {});
     return { success: true };
   }
 
